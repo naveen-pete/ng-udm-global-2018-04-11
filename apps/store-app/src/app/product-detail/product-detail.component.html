@@ -1,0 +1,29 @@
+<p>View Encapsulation Demo</p>
+<!-- Product Detail -->
+<!-- Panel (Structure & Outline) -->
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <!-- Product name -->
+      {{ product.name | uppercase }}
+    </h3>
+  </div>
+  <div class="panel-body">
+    <p [ngStyle]="{ 'color': product.isAvailable ? 'green' : 'red' }">
+      <!-- Product description -->
+      {{ product.description }}
+    </p>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <span class="label" [ngClass]="{ 'label-primary': product.isAvailable, 'label-warning': !product.isAvailable }">
+        <!-- Product availability -->
+        {{ product.isAvailable ? 'Available' : 'Not Available' }}
+      </span>
+    </li>
+    <li class="list-group-item">
+      <!-- Product price -->
+      {{ product.price | currency : 'INR' }}
+    </li>
+  </ul>
+</div>
