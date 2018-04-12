@@ -1,0 +1,12 @@
+<p>
+  <button class="btn btn-primary" (click)="onAdd()">Add</button>
+</p>
+<div class="list-group">
+  <a [routerLink]="['/products', product.id]" [queryParams]="{ name: 'p1', price: 10 }" class="list-group-item" *ngFor="let product of products">
+    {{ product.name }}
+  </a>
+</div>
+
+<!-- // http://localhost:4200/products/1
+// http://localhost:4200/products/2
+// http://localhost:4200/products/3 -->
