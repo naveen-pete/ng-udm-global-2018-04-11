@@ -38,7 +38,12 @@ const appRoutes: Routes = [
     ProductFormComponent,
     ProductDetailComponent
   ],
-  imports: [BrowserModule, FormsModule, RouterModule.forRoot(appRoutes), HttpClientModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule
+  ],
   providers: [ProductsService],
   bootstrap: [AppComponent]
 })

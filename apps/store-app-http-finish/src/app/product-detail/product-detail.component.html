@@ -3,8 +3,7 @@
 <a routerLink="/products" class="btn btn-primary">
   <span class="glyphicon glyphicon-chevron-left"></span>
 </a>
-<br>
-<br>
+<br><br>
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title">
@@ -20,7 +19,7 @@
   <ul class="list-group">
     <li class="list-group-item">
       <!-- <span class="label" [ngClass]="{ 'label-primary': product.isAvailable, 'label-warning': !product.isAvailable }"> -->
-      <span class="label" [class.label-primary]="product.isAvailable" [class.label-warning]="!product.isAvailable">
+      <span class="label" [class.label-primary]="product.isAvailable" [class.label-warning]="!product.isAvailable"> 
         {{ product.isAvailable ? "Available" : "Not Available" }}
       </span>
     </li>

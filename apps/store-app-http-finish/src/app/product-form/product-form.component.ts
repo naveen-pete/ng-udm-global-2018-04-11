@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/empty';
 
 import { Product } from '../models/product';
 import { ProductsService } from '../services/products.service';
@@ -28,36 +26,20 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.paramMap
-      .switchMap(params => {
-        if (!params.get('id') || params.get('id') === 'new') {
-          return Observable.empty();
-        }
-
-        this.id = +params.get('id');
-        return this.service.getProduct(this.id);
-      })
-      .subscribe(
-        (product: Product) => {
-          console.log(`Success: Get product successful. (id: ${this.id})`);
-          this.product = product;
-        },
-        error => {
-          console.log(`Error: Get product failed! (id: ${this.id})`, error);
-        }
-      );
-
-    // this.route.params.subscribe(params => {
-    //   if (params['id'] !== 'new') {
-    //     this.id = +params.id;
-    //     const p = this.service.getProduct(this.id);
-
-    //     if (p) {
-    //       Object.assign(this.product, p);
-    //       this.addNew = false;
-    //     }
-    //   }
-    // });
+    this.route.params.subscribe(params => {
+      if (params['id'] !== 'new') {
+        this.id = +params.id;
+        this.service.getProduct(this.id).subscribe(
+          product => {
+            this.product = product;
+            this.addNew = false;
+          },
+          error => {
+            console.log('Error while getting a product.', error);
+          }
+        );
+      }
+    });
   }
 
   onSubmit() {
@@ -69,10 +51,25 @@ export class ProductFormComponent implements OnInit {
       : false;
 
     if (this.addNew) {
-      this.service.addProduct(this.product);
+      this.service.addProduct(this.product).subscribe(
+        (product: Product) => {
+          console.log('New product added succesfully.', product);
+          this.router.navigate(['/products']);
+        },
+        error => {
+          console.log('Error while adding product.', error);
+        }
+      );
     } else {
-      this.service.updateProduct(this.id, this.product);
+      this.service.updateProduct(this.id, this.product).subscribe(
+        (product: Product) => {
+          console.log('Product updated succesfully.', product);
+          this.router.navigate(['/products']);
+        },
+        error => {
+          console.log('Error while updating product.', error);
+        }
+      );
     }
-    this.router.navigate(['/products']);
   }
 }

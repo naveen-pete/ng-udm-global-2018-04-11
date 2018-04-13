@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Product } from '../models/product';
 import { ProductsService } from '../services/products.service';
@@ -11,23 +12,34 @@ import { ProductsService } from '../services/products.service';
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
 
-  constructor(private service: ProductsService) {}
+  constructor(private service: ProductsService, private router: Router) {}
 
   ngOnInit() {
     this.service.getProducts().subscribe(
       (products: Product[]) => {
-        console.log('Success: Get products successful.');
         this.products = products;
+        console.log('Products succesfully retrieved');
       },
       error => {
-        console.log('Error: Get products failed!', error);
+        console.log('Error while getting products:', error);
+        this.router.navigate(['/not-found']);
       }
     );
   }
 
   onDelete(productId) {
     if (confirm('Are you sure?')) {
-      this.service.deleteProduct(productId);
+      this.service.deleteProduct(productId).subscribe(
+        () => {
+          console.log('Product successfully deleted.');
+          this.products = this.products.filter(
+            product => product.id !== productId
+          );
+        },
+        error => {
+          console.log('Error while deleting product.');
+        }
+      );
     }
   }
 }

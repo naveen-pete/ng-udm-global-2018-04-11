@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
 
 import { Product } from '../models/product';
 import { ProductsService } from '../services/products.service';
@@ -21,20 +20,15 @@ export class ProductDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.paramMap
-      .switchMap(params => {
-        this.id = +params.get('id');
-        return this.service.getProduct(this.id);
-      })
-      .subscribe(
-        (product: Product) => {
-          console.log(`Success: Get product successful. (id: ${this.id})`);
-          this.product = product;
-        },
+    this.route.params.subscribe(params => {
+      this.id = +params['id'];
+      this.service.getProduct(this.id).subscribe(
+        product => (this.product = product),
         error => {
-          console.log(`Error: Get product failed! (id: ${this.id})`, error);
+          console.log('Error while getting a product.', error);
         }
       );
+    });
   }
 
   onDelete() {
