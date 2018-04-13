@@ -1,0 +1,119 @@
+<!-- Product Detail -->
+<!-- Panel (Structure & Outline) -->
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			<!-- Product name -->
+		</h3>
+	</div>
+	<div class="panel-body">
+		<p>
+			<!-- Product description -->
+		</p>
+	</div>
+	<ul class="list-group">
+		<li class="list-group-item">
+			<span> 
+				<!-- Product availability -->
+			</span> 
+		</li>
+		<li class="list-group-item">
+			<!-- Product price -->
+		</li>
+	</ul>
+</div>
+
+--------------------------------------------------------------------------
+<!-- Products -->
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Products</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-5">
+            <!-- Product Form -->
+            <p>Product form comes here</p>
+        </div>
+
+        <div class="col-sm-7">
+            <!-- Product List -->
+            <p>Product list comes here</p>
+       </div>
+    </div>
+</div>
+
+------------------------------------------------------------
+<!-- Product Form -->
+<h3>Product Form</h3>
+<div class="well well-lg">
+    <form>
+		<div class="form-group">
+			<label for="productName">Name</label>
+			<input type="text" class="form-control" 
+				id="productName"
+				name="name">
+		</div>
+		<div class="form-group">
+			<label for="productDescription">Description</label>
+			<textarea class="form-control"
+				id="productDescription" 
+				cols="30" 
+				rows="4"
+				name="description">
+			</textarea>
+		</div>
+        <div class="form-group">
+            <label for="productPrice">Price</label>
+            <input type="text" class="form-control" 
+                id="productPrice"
+                name="price">
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" 
+                    id="isAvailable" 
+                    value="true"
+                    name="isAvailable"> Available
+            </label>
+        </div>
+        <button name="save" class="btn btn-primary">
+            Save
+        </button>
+    </form>
+</div>
+<div class="alert alert-success">
+    Product saved successfully!
+</div>
+
+----------------------------
+<!-- Products Table -->
+<div class="row">
+  <div class="col-xs-12">
+    <h3>Product Table</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <!-- Product table comes here -->
+    <table class="table table-striped">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Available?</th>
+      </tr>
+      <tr *ngFor="let product of products">
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.isAvailable }}</td>
+      </tr>
+    </table>
+  </div>
+</div>
